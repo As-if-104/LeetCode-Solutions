@@ -11,12 +11,12 @@ class Solution:
 
             visit.add((i, j))
 
-            return min(dfs(i, j+1), dfs(i+1, j), dfs(i-1, j), dfs(i, j-1))
-
-        num_closed_islands= 0
-        for r in range(rows):
-            for c in range(cols):
-                if not grid[r][c] and (r, c) not in visit:
-                    num_closed_islands += dfs(r, c)
+            return min(dfs(i+1, j), dfs(i, j+1), dfs(i-1, j), dfs(i, j-1))
+        
+        num_closed_islands = 0
+        for i in range(rows):
+            for j in range(cols):
+                if not grid[i][j] and (i, j) not in visit:
+                    num_closed_islands += dfs(i, j)
 
         return num_closed_islands
