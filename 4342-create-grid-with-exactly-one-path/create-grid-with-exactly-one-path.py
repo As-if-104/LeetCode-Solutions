@@ -1,12 +1,22 @@
 class Solution:
     def createGrid(self, m: int, n: int) -> list[str]:
-        grid = [['#'] * n for _ in range(m)]
+        # grid = [['#'] * n for _ in range(m)]
 
-        for j in range(n):
-            grid[0][j] = '.'
+        # for j in range(n):
+        #     grid[0][j] = '.'
 
-        for i in range(1, m):
-            grid[i][n-1] = '.'
+        # for i in range(1, m):
+        #     grid[i][n-1] = '.'
 
-        return [''.join(row) for row in grid]
+        # return [''.join(row) for row in grid]
+
+        grid = []
+
+        for i in range(m):
+            if i == 0:
+                grid.append('.' * n)
+            else:
+                grid.append('#' * (n-1) + '.')
+
+        return grid
         
