@@ -1,38 +1,69 @@
+# class Solution:
+#     def minCost(self, maxTime: int, edges: list[list[int]], passingFees: list[int]) -> int:
+        # INF = float('inf')
+        # n = len(passingFees)
+
+        # adj = [[] for _ in range(n)]
+
+        # for edge in edges:
+        #     u, v, t = edge
+        #     adj[u].append((v, t))
+        #     adj[v].append((u, t))
+
+        # distance = [[INF] * (maxTime + 1) for _ in range(n)]
+        # distance[0][0] = passingFees[0]
+
+        # pq = [(passingFees[0], 0, 0)]
+
+        # while pq:
+        #     cost, u, time_used = heapq.heappop(pq)
+
+        #     if u == n-1:
+        #         return cost
+
+        #     if cost > distance[u][time_used]:
+        #         continue
+
+        #     for v, t in adj[u]:
+        #         new_time = time_used + t
+        #         if new_time > maxTime:
+        #             continue
+                
+        #         new_cost = cost + passingFees[v]
+
+        #         if new_cost < distance[v][new_time]:
+        #             distance[v][new_time] = new_cost
+        #             heapq.heappush(pq, (new_cost, v, new_time))
+
+        # return -1
+
 class Solution:
     def minCost(self, maxTime: int, edges: list[list[int]], passingFees: list[int]) -> int:
-        INF = float('inf')
         n = len(passingFees)
 
-        adj = [[] for _ in range(n)]
-
-        for edge in edges:
-            u, v, t = edge
-            adj[u].append((v, t))
-            adj[v].append((u, t))
-
-        distance = [[INF] * (maxTime + 1) for _ in range(n)]
-        distance[0][0] = passingFees[0]
-
+        graph = [[] for _ in range(n)]
+        for u, v, t in edges:
+            graph[u].append((v, t))
+            graph[v].append((u, t))
+            
+        min_time = [float('inf')] * n
+        min_time[0] = 0
+        
+        # Priority Queue: (cost, time, curr)
         pq = [(passingFees[0], 0, 0)]
-
+        
         while pq:
-            cost, u, time_used = heapq.heappop(pq)
-
-            if u == n-1:
+            cost, time, curr = heapq.heappop(pq)
+            
+            if curr == n - 1:
                 return cost
-
-            if cost > distance[u][time_used]:
-                continue
-
-            for v, t in adj[u]:
-                new_time = time_used + t
-                if new_time > maxTime:
-                    continue
                 
-                new_cost = cost + passingFees[v]
-
-                if new_cost < distance[v][new_time]:
-                    distance[v][new_time] = new_cost
-                    heapq.heappush(pq, (new_cost, v, new_time))
-
+            for nbr, next_time in graph[curr]:
+                t = time + next_time
+                
+                if t <= maxTime:
+                    if t < min_time[nbr]:
+                        min_time[nbr] = t
+                        heapq.heappush(pq, (cost + passingFees[nbr], t, nbr))
+                        
         return -1
