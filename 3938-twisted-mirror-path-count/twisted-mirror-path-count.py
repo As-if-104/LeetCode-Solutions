@@ -9,15 +9,15 @@ class Solution:
         for i in range(m):
             for j in range(n):
                 if i > 0:
-                    if grid[i - 1][j] == 0:
+                    if grid[i-1][j] == 0:
                         f[j][0] = (f[j][0] + f[j][1]) % MOD
                     else:
                         f[j][0] = f[j][1]
-
+                
                 if j > 0:
-                    if grid[i][j - 1] == 0:
-                        f[j][1] = (f[j - 1][0] + f[j - 1][1]) % MOD
+                    if grid[i][j-1] == 0:
+                        f[j][1] = (f[j-1][0] + f[j-1][1]) % MOD
                     else:
-                        f[j][1] = f[j - 1][0]
-
+                        f[j][1] = f[j-1][0]
+        
         return (f[-1][0] + f[-1][1]) % MOD
