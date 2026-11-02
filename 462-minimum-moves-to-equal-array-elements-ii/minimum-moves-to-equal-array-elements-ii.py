@@ -4,4 +4,4 @@ class Solution:
 
         median = nums[len(nums) // 2]
 
-        return sum(abs(num - median) for num in nums)
+        return sum(abs(median - num) for num in nums)
