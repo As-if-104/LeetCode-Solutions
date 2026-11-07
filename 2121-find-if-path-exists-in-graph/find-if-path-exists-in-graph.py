@@ -28,8 +28,37 @@ class Solution:
         # return dfs(source)
 
 
-        # 2. DFS with stack
+        # 2. DFS with Stack
         
+        # if source == destination:
+        #     return True
+            
+        # graph = defaultdict(list)    
+        # for u, v in edges:
+        #     graph[u].append(v)
+        #     graph[v].append(u)
+        
+        # visit = set()
+        # visit.add(source)
+        # stack = [source]
+
+        # while stack:
+        #     node = stack.pop()
+
+        #     if node == destination:
+        #         return True
+            
+        #     for nei_node in graph[node]:
+        #         if nei_node not in visit:
+        #             visit.add(nei_node)
+        #             stack.append(nei_node)
+            
+        # return False
+
+
+
+        # BFS with Queue
+
         if source == destination:
             return True
             
@@ -40,10 +69,11 @@ class Solution:
         
         visit = set()
         visit.add(source)
-        stack = [source]
+        queue = deque()
+        queue.append(source)
 
-        while stack:
-            node = stack.pop()
+        while queue:
+            node = queue.popleft()
 
             if node == destination:
                 return True
@@ -51,6 +81,6 @@ class Solution:
             for nei_node in graph[node]:
                 if nei_node not in visit:
                     visit.add(nei_node)
-                    stack.append(nei_node)
+                    queue.append(nei_node)
             
         return False
